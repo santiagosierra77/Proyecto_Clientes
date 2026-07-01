@@ -1,8 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from modelos.clientes import Cliente, ClienteCrear, ClienteEditar
 from modelos.facturas import Factura, FacturaCrear, FacturaEditar
 from modelos.transacciones import Transaccion, TransaccionCrear, TransaccionEditar
-
 
 app = FastAPI()
 
@@ -21,10 +20,13 @@ async def listar_clientes():
 # endpoint, para obtener o listar un solo cliente de la lista
 @app.get("/clientes/{cliente_id}", response_model=Cliente)
 async def listar_cliente(cliente_id: int):
-    #recorrer la lista clientes
+    #recorrer la lista_clientes
     for i, obj_cliente in enumerate(lista_clientes):
         if obj_cliente.id == cliente_id:
             return obj_cliente
+    raise HTTPException(
+        status_code=400, detail=f"El cliente con id {cliente_id}, no existe.   "
+    )
 
 
 # endpoint, para crear un cliente y agregar a la lista
@@ -64,7 +66,6 @@ async def eliminar_cliente(cliente_id: int):
         status_code=400,detail=f"El cliente con id {cliente_id}, no existe."
     )
 
-
 # |||||||||||||||||||||||||||||
 # crear los endpoint para facturas
 
@@ -74,9 +75,15 @@ async def listar_facturas():
     return lista_facturas
 
 
-@app.get("/facturas/{id_factura}", response_model=Factura)
-async def listar_factura(id_factura: int):
-    pass
+@app.get("/facturas/{factura_id}", response_model=Factura)
+async def listar_factura(factura_id: int):
+     #recorrer la lista_facturas
+    for i, obj_factura in enumerate(lista_facturas):
+        if obj_factura.id == factura_id:
+            return obj_factura
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail=f"La factura con id {factura_id}, no existe.   "
+    )
 
 
 @app.post("/facturas/{id_cliente}", response_model=Factura)
@@ -98,7 +105,7 @@ async def eliminar_factura(id_factura):
 # crear los endpoint para transacciones 
 
 
-@app.get("/transacciones", response_model=list(Transaccion))
+@app.get("/transacciones", response_model=list[Transaccion])
 async def listar_transacciones():
     pass
 
