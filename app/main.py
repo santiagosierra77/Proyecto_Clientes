@@ -154,9 +154,10 @@ async def crear_transaccion(factura_id: int, datos_transaccion: TransaccionCrear
     transaccion_val = Transaccion.model_validate(datos_transaccion.model_dump())
     transaccion_val.factura_id = factura_id
     factura_encontrada.transacciones.append(transaccion_val)
-    
-    # Id de la factura
+    # Id de la transaccion
     transaccion_val.id = len(lista_transacciones) + 1
+    # Falto agregar a la lista_transacciones
+    lista_transacciones.append(transaccion_val)
     return transaccion_val
 
 
