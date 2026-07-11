@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, status
-from ..modelos.facturas import Factura, FacturaCrear, FacturaEditar, FacturaLeer
+from ..modelos.facturas import Factura, FacturaCrear, FacturaEditar, FacturaLeer, FacturaLeerCompuesta
 from ..modelos.clientes import Cliente
 from ..listas import lista_clientes, lista_facturas
 from ..conexion_bd import Sesion_dependencia
@@ -12,7 +12,7 @@ rutas_facturas = APIRouter()
 
 
 
-@rutas_facturas.get("/facturas", response_model=list[FacturaLeer])
+@rutas_facturas.get("/facturas", response_model=list[FacturaLeerCompuesta])
 async def listar_facturas(sesion: Sesion_dependencia):
     #select * from factura
     consulta = select(Factura)
