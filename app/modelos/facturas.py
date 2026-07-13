@@ -19,12 +19,18 @@ class FacturaBase(SQLModel):
     @property
     def vr_total(self) -> float:
         total_factura = 0.0
-        if self.transacciones == None:
+        
+        # 1. Buscamos el atributo de forma segura
+        transacciones = getattr(self, "transacciones", None)
+        
+        # 2. Si es None (como al crear), devolvemos 0.0 de inmediato
+        if transacciones is None:
             return total_factura
-        #     return total_factura
-        # #recorrer la lista de transacciones, segun el factura_id 
-        for transaccion in self.transacciones:
+            
+        # 3. Si existen, recorremos la variable local "transacciones" (¡sin el self. adelante!)
+        for transaccion in transacciones:
             total_factura += transaccion.vr_unitario * transaccion.cantidad
+            
         return total_factura
 
 
