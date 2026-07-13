@@ -1,7 +1,7 @@
-Avance del proyecto - facturacion y transaciones
-El vidoe de demostracion del funcionamiento se pued ver en este link:
-
-
+Proyecto en Fastapi de facturacion y transaciones
+Instructor: Jhonny Guerrero
+Aprendiz: Santiago Sierra Mateus
+Ficha: 3407181
 
 Contenido
 Este proyecto simula el nucleo financiero de una plataforma comercial. La API fue desarrollada utilizando Python y el framework FastAPI, siguiendo una arquitectura basada en modelos(clientes, facturas y transacciones) y esquemas para validar los datos mediante Pydantic.
